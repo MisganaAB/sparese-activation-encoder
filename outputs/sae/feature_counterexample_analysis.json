@@ -1,0 +1,226 @@
+{
+  "metadata": {
+    "model_id": "gpt2-small",
+    "sae_checkpoint": "outputs/sae/sae_run_b_lambda_0.01.pt",
+    "hook_site": "blocks.6.hook_resid_post",
+    "evaluation_split": "held-out test set (2,112 tokens, 32 documents)",
+    "methodology": "Systematic counterexample retrieval analyzing false negatives (inactive targets), false positives / off-target fires, position sensitivity, and alternative linguistic constructions."
+  },
+  "inspected_features": [
+    {
+      "feature_id": 841,
+      "provisional_description": "Sequence Delimiter / Attention Sink Hypothesis",
+      "fire_rate": 0.015151515151515152,
+      "fire_count": 32,
+      "max_activation": 696.74169921875,
+      "supporting_examples": [
+        {
+          "rank": 1,
+          "token": "<|endoftext|>",
+          "token_id": 50256,
+          "activation": 696.74169921875,
+          "doc_idx": 1,
+          "position_in_chunk": 0,
+          "context": "<|endoftext|>"
+        },
+        {
+          "rank": 2,
+          "token": "<|endoftext|>",
+          "token_id": 50256,
+          "activation": 696.74169921875,
+          "doc_idx": 3,
+          "position_in_chunk": 0,
+          "context": "<|endoftext|>"
+        }
+      ],
+      "counterexamples": [
+        {
+          "type": "Position-0 Invariance (Non-EOT Position-0 Fires)",
+          "description": "Feature 841 fires on all 32 document chunks at position 0, including 8 chunks that do not begin with '<|endoftext|>'. In these 8 chunks, ordinary tokens (e.g., ' Ridley', ' W', ' \"', ' .', ' of') trigger massive activations ranging from 684.45 to 694.56 purely because they occupy position 0.",
+          "evidence": [
+            {
+              "token": " Ridley",
+              "token_id": 39616,
+              "activation": 685.80712890625,
+              "doc_idx": 3,
+              "position_in_chunk": 0,
+              "context": " Ridley"
+            },
+            {
+              "token": " .",
+              "token_id": 764,
+              "activation": 687.4597778320312,
+              "doc_idx": 16,
+              "position_in_chunk": 0,
+              "context": " ."
+            }
+          ],
+          "implication": "Refutes the interpretation that Feature 841 encodes the semantic or lexical identity of '<|endoftext|>'. It is an architectural position-0 detector."
+        },
+        {
+          "type": "Zero Generalization to Sentence-End Periods (' .')",
+          "description": "If Feature 841 represented general discourse termination or boundary semantics, it would activate at sentence boundaries. Across all 71 sentence-ending period tokens (' .') in the test set, Feature 841 has exactly 0.0000 activation (except for index 898 which happened to be chunk position 0).",
+          "evidence": [
+            {
+              "token": " .",
+              "activation": 0.0,
+              "doc_idx": 3,
+              "position_in_chunk": 32,
+              "context": " starring role on the television series The Bill in 2000 ."
+            }
+          ],
+          "implication": "Lacks semantic generalization to natural discourse boundaries."
+        },
+        {
+          "type": "Immediate Post-BOS Extinction (Position 1)",
+          "description": "At position 1 across all 32 test documents, Feature 841 activation drops instantaneously to exactly 0.0000 (max activation across all 32 position-1 tokens is 0.0000).",
+          "evidence": [
+            {
+              "token": "=",
+              "activation": 0.0,
+              "position_in_chunk": 1,
+              "context": "<|endoftext|>="
+            }
+          ],
+          "implication": "Confirms the feature is a transient attention-sink position artifact with zero persistence into content tokens."
+        }
+      ],
+      "cautious_conclusion": "Feature 841 does NOT encode a semantic concept. It is an unnormalized numerical attention-sink artifact: in GPT-2 Small, position 0 absorbs excess residual norm because attention heads attend to it when no relevant context exists. The SAE dedicates an isolated latent direction with extreme magnitude (696.74) to reconstruct this geometric singularity."
+    },
+    {
+      "feature_id": 4,
+      "provisional_description": "Syntactic Coordinator (' and') Hypothesis",
+      "fire_rate": 0.028409090909090908,
+      "fire_count": 60,
+      "max_activation": 19.939363479614258,
+      "supporting_examples": [
+        {
+          "rank": 1,
+          "token": " and",
+          "activation": 19.939363479614258,
+          "doc_idx": 45,
+          "context": " the standard education of a future civil servant : study and"
+        },
+        {
+          "rank": 2,
+          "token": " and",
+          "activation": 14.634307861328125,
+          "doc_idx": 46,
+          "context": " because his prose style at the time was too dense and"
+        }
+      ],
+      "counterexamples": [
+        {
+          "type": "High False-Negative Rate on Surface ' and' Tokens (17 of 37 Inactive)",
+          "description": "Out of 37 total occurrences of 'and' in the test set, Feature 4 is completely inactive (0.0000 activation) on 17 tokens (45.9% false negative rate). Inactive instances occur in director credits ('directed by John Tiffany and') and actor lists ('Sophie Stanton and').",
+          "evidence": [
+            {
+              "token": " and",
+              "activation": 0.0,
+              "doc_idx": 3,
+              "context": " Factory in London . He was directed by John Tiffany and"
+            },
+            {
+              "token": " and",
+              "activation": 0.0,
+              "doc_idx": 3,
+              "context": " , Harry Kent , Fraser Ayres , Sophie Stanton and"
+            }
+          ],
+          "implication": "Feature 4 does not fire uniformly on lexical 'and'. It requires specific clausal or predicate-coordinating syntax, failing on serial name lists."
+        },
+        {
+          "type": "Generalization to Alternative Disjunctive Coordinator (' or')",
+          "description": "Feature 4 fires on both occurrences of ' or' in the test set with notable activation (act = 6.3823 in 'either misunderstand the poem or' and act = 3.9879 in 'Hugo or').",
+          "evidence": [
+            {
+              "token": " or",
+              "activation": 6.382316589355469,
+              "doc_idx": 39,
+              "context": " the result will be that we either misunderstand the poem or"
+            }
+          ],
+          "implication": "Broadens the hypothesis: Feature 4 is not strictly an 'and' feature, but a generalized clausal coordinator encompassing disjunctive alternatives."
+        },
+        {
+          "type": "Off-Target Typographical Separator Activation (' /')",
+          "description": "Feature 4's 5th highest activation is on a typographical forward slash (' /', act = 9.2299) in a theatrical title context ('titled Burn /').",
+          "evidence": [
+            {
+              "token": " /",
+              "activation": 9.229949951171875,
+              "doc_idx": 16,
+              "context": " series which featured different playwrights , titled Burn /"
+            }
+          ],
+          "implication": "Demonstrates mild polysemanticity or syntactic bleed: the feature responds to punctuation-based coordination and delimiters."
+        }
+      ],
+      "cautious_conclusion": "Feature 4 represents clausal and predicate coordination across both additive (' and') and alternative (' or') contexts, but fails on 45.9% of surface 'and' tokens (particularly serial names) and bleeds into typographical list separators (' /')."
+    },
+    {
+      "feature_id": 766,
+      "provisional_description": "Historical & Biographical Narrative Hypothesis",
+      "fire_rate": 0.005208333333333333,
+      "fire_count": 11,
+      "max_activation": 4.113193035125732,
+      "supporting_examples": [
+        {
+          "rank": 1,
+          "token": " allowed",
+          "activation": 4.113193035125732,
+          "doc_idx": 47,
+          "context": " died around 740 . Du Fu would have been allowed"
+        },
+        {
+          "rank": 2,
+          "token": " Shen",
+          "activation": 0.9727092981338501,
+          "doc_idx": 43,
+          "context": " comes from his poems . His paternal grandfather was Du Shen"
+        }
+      ],
+      "counterexamples": [
+        {
+          "type": "Complete Inactivity Across Core Biographical Tokens in Document 47",
+          "description": "In Document 47 (biography of Du Fu, 67 total tokens), Feature 766 activates on exactly ONE token (' allowed', act = 4.1132). Across all other 66 tokens\u2014including historical dates (' 740', act = 0.0), names (' Du', ' Fu', act = 0.0), family terms (' father', act = 0.0), and biographical events (' died', act = 0.0)\u2014Feature 766 has exactly 0.0000 activation.",
+          "evidence": [
+            {
+              "token": " 740",
+              "activation": 0.0,
+              "doc_idx": 47,
+              "context": "<|endoftext|>His father died around 740"
+            },
+            {
+              "token": " Fu",
+              "activation": 0.0,
+              "doc_idx": 47,
+              "context": "<|endoftext|>His father died around 740 . Du Fu"
+            }
+          ],
+          "implication": "Decisively disproves that Feature 766 represents a high-level semantic concept of 'historical biography'. A genuine topic feature would maintain elevated activation across core biographical entities."
+        },
+        {
+          "type": "Lexical Incoherence and Non-Biographical Context Leakage",
+          "description": "Outside of ' allowed', Feature 766's remaining 9 active tokens consist of unrelated, low-magnitude activations: ' confidence' (act = 0.0380 in a modern theatrical interview, doc 17), ' result' (act = 0.3507), ' be' (act = 0.1454), and ' that' (act = 0.0256). Furthermore, when ' allowed' appears in doc 35, its activation drops by 84% to 0.6540.",
+          "evidence": [
+            {
+              "token": " confidence",
+              "activation": 0.038,
+              "doc_idx": 17,
+              "context": "fantastic at taking you through procedures and giving you the confidence"
+            },
+            {
+              "token": " allowed",
+              "activation": 0.654,
+              "doc_idx": 35,
+              "context": "Chinese critics , while the range of his work has allowed"
+            }
+          ],
+          "implication": "Feature 766 displays classic polysemantic noise: low activation magnitude (max 4.11 vs 696.7 and 19.9), extreme lexical dispersion, and spurious cross-domain activation."
+        }
+      ],
+      "cautious_conclusion": "Feature 766 does NOT represent a clean semantic concept of 'historical biography'. The appearance of biographical text in its top context is a small-sample sampling confound. The latent direction displays weak directional alignment, fails to activate on central biographical terms, and exhibits polysemantic dispersion across unrelated vocabulary."
+    }
+  ]
+}

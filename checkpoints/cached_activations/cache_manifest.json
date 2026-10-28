@@ -1,0 +1,32 @@
+{
+  "model_id": "gpt2-small",
+  "hook_name": "blocks.6.hook_resid_post",
+  "hidden_dim": 768,
+  "dataset": "wikitext",
+  "dataset_config": "wikitext-2-raw-v1",
+  "seed": 42,
+  "created_at_utc": "2026-10-28T11:10:57.405898+00:00",
+  "splits": {
+    "train": {
+      "token_count": 8312,
+      "tensor_shape": [
+        8312,
+        768
+      ]
+    },
+    "validation": {
+      "token_count": 2049,
+      "tensor_shape": [
+        2049,
+        768
+      ]
+    },
+    "test": {
+      "token_count": 2112,
+      "tensor_shape": [
+        2112,
+        768
+      ]
+    }
+  }
+}

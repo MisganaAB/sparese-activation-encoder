@@ -1,0 +1,33 @@
+# ==============================================================================
+# Research Project: Activation Patching & Sparse Autoencoders on GPT-2 Small
+# Environment Requirements & Pinned Dependencies
+# ==============================================================================
+
+# Core Deep Learning Framework
+torch>=2.0.0
+
+# Mechanistic Interpretability & Transformers
+# NOTE: TransformerLens 4.0 removed HookedTransformer in favor of TransformerBridge.
+# We pin transformer-lens to the robust 2.x release (<3.0.0) with transformers 4.x
+# to guarantee HookedTransformer compatibility and stable hook extraction.
+transformer-lens>=2.0.0,<3.0.0
+transformers>=4.40.0,<5.0.0
+
+# Data & Tensor Manipulation
+datasets>=2.15.0
+einops>=0.7.0
+jaxtyping>=0.2.25
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Serialization & Storage
+safetensors>=0.4.0
+
+# Visualization & Progress Tracking
+matplotlib>=3.7.0
+tqdm>=4.65.0
+
+# Interactive Notebook Environment
+jupyterlab>=4.0.0
+ipywidgets>=8.0.0

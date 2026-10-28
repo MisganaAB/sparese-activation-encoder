@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / ambient files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Large model weights and tensor caches (keep placeholders, track metadata if needed)
+outputs/patching/*.pt
+outputs/sae/*.pt
+checkpoints/*.pt
+*.safetensors
+*.bin
+
+# Allow directory structure keep files
+!outputs/patching/.gitkeep
+!outputs/sae/.gitkeep
+!checkpoints/.gitkeep
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Weights & Biases / Wandb runs
+wandb/

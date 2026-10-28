@@ -1,0 +1,170 @@
+[
+  {
+    "feature_id": 841,
+    "selection_criterion": "Document Boundary / BOS Attention Sink: Selected as the feature with maximal peak activation specifically on the '<|endoftext|>' sequence delimiter token",
+    "category": "Attention Sink / Sequence Delimiter",
+    "fire_rate": 0.015151515151515152,
+    "fire_count": 32,
+    "max_activation": 696.74169921875,
+    "hypothesized_role": "Fires predominantly on '<|endoftext|>' boundary tokens. In autoregressive transformers like GPT-2, the first position frequently serves as an attention sink absorbing extreme activation magnitudes, captured here as an isolated high-magnitude dictionary feature.",
+    "top_examples": [
+      {
+        "rank": 1,
+        "activation_value": 696.7417,
+        "token_str": "<|endoftext|>",
+        "token_id": 50256,
+        "doc_idx": 1,
+        "token_idx_in_chunk": 0,
+        "context_prefix": "<|endoftext|>"
+      },
+      {
+        "rank": 2,
+        "activation_value": 696.7417,
+        "token_str": "<|endoftext|>",
+        "token_id": 50256,
+        "doc_idx": 12,
+        "token_idx_in_chunk": 0,
+        "context_prefix": "<|endoftext|>"
+      },
+      {
+        "rank": 3,
+        "activation_value": 696.7417,
+        "token_str": "<|endoftext|>",
+        "token_id": 50256,
+        "doc_idx": 47,
+        "token_idx_in_chunk": 0,
+        "context_prefix": "<|endoftext|>"
+      },
+      {
+        "rank": 4,
+        "activation_value": 696.7417,
+        "token_str": "<|endoftext|>",
+        "token_id": 50256,
+        "doc_idx": 17,
+        "token_idx_in_chunk": 0,
+        "context_prefix": "<|endoftext|>"
+      },
+      {
+        "rank": 5,
+        "activation_value": 696.7417,
+        "token_str": "<|endoftext|>",
+        "token_id": 50256,
+        "doc_idx": 39,
+        "token_idx_in_chunk": 0,
+        "context_prefix": "<|endoftext|>"
+      }
+    ]
+  },
+  {
+    "feature_id": 4,
+    "selection_criterion": "High-Frequency Syntactic Coordinator: Selected from features with fire rate between 2.0% and 5.0% whose highest-activating examples consistently occur on grammatical conjunctions in natural text",
+    "category": "Syntactic Coordinator (' and')",
+    "fire_rate": 0.028409090909090908,
+    "fire_count": 60,
+    "max_activation": 19.939363479614258,
+    "hypothesized_role": "Fires strongly on coordinating conjunctions (' and') joining parallel nouns, compound predicates, or clauses across varied textual domains.",
+    "top_examples": [
+      {
+        "rank": 1,
+        "activation_value": 19.9394,
+        "token_str": " and",
+        "token_id": 290,
+        "doc_idx": 45,
+        "token_idx_in_chunk": 27,
+        "context_prefix": " the standard education of a future civil servant : study and"
+      },
+      {
+        "rank": 2,
+        "activation_value": 14.6343,
+        "token_str": " and",
+        "token_id": 290,
+        "doc_idx": 46,
+        "token_idx_in_chunk": 92,
+        "context_prefix": " because his prose style at the time was too dense and"
+      },
+      {
+        "rank": 3,
+        "activation_value": 14.62,
+        "token_str": " and",
+        "token_id": 290,
+        "doc_idx": 39,
+        "token_idx_in_chunk": 112,
+        "context_prefix": " The less accurately we know the time , the place and"
+      },
+      {
+        "rank": 4,
+        "activation_value": 12.2305,
+        "token_str": " and",
+        "token_id": 290,
+        "doc_idx": 17,
+        "token_idx_in_chunk": 81,
+        "context_prefix": " on set who are fantastic at taking you through procedures and"
+      },
+      {
+        "rank": 5,
+        "activation_value": 9.2299,
+        "token_str": " /",
+        "token_id": 1220,
+        "doc_idx": 16,
+        "token_idx_in_chunk": 33,
+        "context_prefix": " series which featured different playwrights , titled Burn /"
+      }
+    ]
+  },
+  {
+    "feature_id": 766,
+    "selection_criterion": "Low-Frequency Specialized Entity/Subword: Selected from features with fire rate between 0.2% and 1.0% whose top activations occur on specific biographical and historical prose",
+    "category": "Historical & Biographical Narrative",
+    "fire_rate": 0.005208333333333333,
+    "fire_count": 11,
+    "max_activation": 4.113193035125732,
+    "hypothesized_role": "Fires on biographical narrative contexts detailing historical figures, lineages, and academic commentary (specifically observed on Chinese historical poetry articles).",
+    "top_examples": [
+      {
+        "rank": 1,
+        "activation_value": 4.1132,
+        "token_str": " allowed",
+        "token_id": 3142,
+        "doc_idx": 47,
+        "token_idx_in_chunk": 13,
+        "context_prefix": " died around 740 . Du Fu would have been allowed"
+      },
+      {
+        "rank": 2,
+        "activation_value": 0.9727,
+        "token_str": " Shen",
+        "token_id": 22323,
+        "doc_idx": 43,
+        "token_idx_in_chunk": 22,
+        "context_prefix": " comes from his poems . His paternal grandfather was Du Shen"
+      },
+      {
+        "rank": 3,
+        "activation_value": 0.654,
+        "token_str": " allowed",
+        "token_id": 3142,
+        "doc_idx": 35,
+        "token_idx_in_chunk": 80,
+        "context_prefix": " Chinese critics , while the range of his work has allowed"
+      },
+      {
+        "rank": 4,
+        "activation_value": 0.5615,
+        "token_str": " frequently",
+        "token_id": 6777,
+        "doc_idx": 34,
+        "token_idx_in_chunk": 45,
+        "context_prefix": " with Li Bai ( Li Po ) , he is frequently"
+      },
+      {
+        "rank": 5,
+        "activation_value": 0.4786,
+        "token_str": " attributes",
+        "token_id": 12608,
+        "doc_idx": 39,
+        "token_idx_in_chunk": 21,
+        "context_prefix": " when interpreting a work , a practice which Burton Watson attributes"
+      }
+    ]
+  }
+]
